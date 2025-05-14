@@ -2,7 +2,6 @@ import 'package:diary_ai/model/models.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
 
-
 class DatabaseHelper {
   static Database? _database;
   static const String _dbName = "diary.db";
@@ -40,13 +39,14 @@ class DatabaseHelper {
     );
   }
 
-   Future<void> saveUserEmail(String email) async {
+  Future<void> saveUserEmail(String email) async {
     final db = await database;
-    await db.insert(_userTable, {'email': email},
-        conflictAlgorithm: ConflictAlgorithm.replace);
+    await db.insert(_userTable, {
+      'email': email,
+    }, conflictAlgorithm: ConflictAlgorithm.replace);
   }
 
-   Future<String?> getUserEmail() async {
+  Future<String?> getUserEmail() async {
     final db = await database;
     final result = await db.query(_userTable);
     if (result.isNotEmpty) {
@@ -55,44 +55,43 @@ class DatabaseHelper {
     return null;
   }
 
-   Future<void> clearUserEmail() async {
+  Future<void> clearUserEmail() async {
     final db = await database;
     await db.delete(_userTable);
   }
 
-
   /// **Insert a Todo**
-  static Future<void> insertTodo(DiaryModel diary) async {
+  static Future<void> insertDiary(DiaryModel diary) async {
     final db = await database;
-    await db.insert(
-      'diary',
-      {
-        'id': diary.id,
-        'userId': diary.userId,
-        'title': diary.diaryTitle,
-        'completed': diary.diaryDescription ,
-        'dueDate': diary.dateTime.toIso8601String(),
-      },
-      conflictAlgorithm: ConflictAlgorithm.replace,
-    );
+    await db.insert('diary', {
+      'id': diary.id,
+      'userId': diary.userId,
+      'title': diary.diaryTitle,
+      'completed': diary.diaryDescription,
+      'dueDate': diary.dateTime.toIso8601String(),
+    }, conflictAlgorithm: ConflictAlgorithm.replace);
   }
 
   /// **Retrieve All Todos**
-  static Future<List<DiaryModel>> getTodos() async {
+  static Future<List<DiaryModel>> getDiaries() async {
     final db = await database;
     final List<Map<String, dynamic>> maps = await db.query('todos');
 
-    return maps.map((map) => DiaryModel(
-      id: map['id'],
-      diaryTitle: map['title'],
-      diaryDescription: map['description'],
-      userId: map['userId'],
-      dateTime: DateTime.parse(map['dueDate']),
-    )).toList();
+    return maps
+        .map(
+          (map) => DiaryModel(
+            id: map['id'],
+            diaryTitle: map['title'],
+            diaryDescription: map['description'],
+            userId: map['userId'],
+            dateTime: DateTime.parse(map['dueDate']),
+          ),
+        )
+        .toList();
   }
 
   /// **Update Todo Completion Status**
-  static Future<void> updateTodo(String id, bool completed) async {
+  static Future<void> updateDiary(String id, bool completed) async {
     final db = await database;
     await db.update(
       'diary',

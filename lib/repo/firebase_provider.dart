@@ -6,7 +6,7 @@ import '../model/models.dart';
 import '../service/databaseHelper.dart';
 import 'google_signin_provider.dart';
 
-final firestoreProvider = Provider((ref)=> FirebaseFirestore.instance);
+final firestoreProvider = Provider((ref) => FirebaseFirestore.instance);
 
 final userEmailProvider = FutureProvider<String?>((ref) async {
   final dbHelper = DatabaseHelper();
@@ -18,35 +18,36 @@ final userEmailProvider = FutureProvider<String?>((ref) async {
   return email; // This should return a valid email, not null.
 });
 
-
-
-
-//Diary Creator to Firebase
-final diaryListProvider = StreamProvider<List<DiaryModel>>((ref){
+//Diary List to Firebase
+final diaryListProvider = StreamProvider<List<DiaryModel>>((ref) {
   final user = ref.watch(userProvider);
   final firestore = ref.watch(firestoreProvider);
 
-if (user == null) return Stream.value([]); // Return empty list if not signed in
+  if (user == null) {
+    return Stream.value([]); // Return empty list if not signed in
+  }
 
-return firestore
-    .collection(user)
-    .doc('diary')
-    .collection('list')
-    .snapshots()
-    .asyncMap((snapshot) async {
-List<DiaryModel> firebaseTodos =
-snapshot.docs.map((doc) => DiaryModel.fromJson(doc.data())).toList();
+  return firestore
+      .collection('diary')
+      .doc(user)
+      .collection('list')
+      .snapshots()
+      .asyncMap((snapshot) async {
+        List<DiaryModel> firebaseTodos =
+            snapshot.docs
+                .map((doc) => DiaryModel.fromJson(doc.data()))
+                .toList();
 
-// Save to SQLite for offline support
-for (var todo in firebaseTodos) {
-await DatabaseHelper.insertTodo(todo);
-}
+        // Save to SQLite for offline support
+        for (var todo in firebaseTodos) {
+          await DatabaseHelper.insertDiary(todo);
+        }
 
-// Load local todos if Firebase is empty
-if (firebaseTodos.isEmpty) {
-return await DatabaseHelper.getTodos();
-}
+        // Load local todos if Firebase is empty
+        if (firebaseTodos.isEmpty) {
+          return await DatabaseHelper.getDiaries();
+        }
 
-return firebaseTodos;
-});
+        return firebaseTodos;
+      });
 });

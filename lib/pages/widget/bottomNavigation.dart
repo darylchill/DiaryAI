@@ -6,16 +6,16 @@ import '../../repo/google_signin_provider.dart';
 import '../../service/databaseHelper.dart';
 import '../account.dart';
 
-
 class BottomNavigationBarDiary extends ConsumerStatefulWidget {
   const BottomNavigationBarDiary({super.key});
 
   @override
-  ConsumerState<BottomNavigationBarDiary> createState() => _BottomNavigationBarTodoState();
+  ConsumerState<BottomNavigationBarDiary> createState() =>
+      _BottomNavigationBarTodoState();
 }
 
-class _BottomNavigationBarTodoState extends ConsumerState<BottomNavigationBarDiary> {
-
+class _BottomNavigationBarTodoState
+    extends ConsumerState<BottomNavigationBarDiary> {
   final PageController _pageController = PageController();
   int _selectedIndex = 0;
 
@@ -34,7 +34,7 @@ class _BottomNavigationBarTodoState extends ConsumerState<BottomNavigationBarDia
   }
 
   Future<void> restoreSession(WidgetRef ref) async {
-    final databaseHelper =  DatabaseHelper();
+    final databaseHelper = DatabaseHelper();
     String? savedEmail = await databaseHelper.getUserEmail();
 
     if (savedEmail != null) {
@@ -42,12 +42,10 @@ class _BottomNavigationBarTodoState extends ConsumerState<BottomNavigationBarDia
     }
   }
 
-
   @override
   void initState() {
     super.initState();
     restoreSession(ref); // ✅ Restore saved session on app launch
-
   }
 
   @override
@@ -57,58 +55,61 @@ class _BottomNavigationBarTodoState extends ConsumerState<BottomNavigationBarDia
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        title: user == null
-            ? const Text('Sign in to write your memories!')
-            : Text('Diary List'),
+        title:
+            user == null
+                ? const Text('Sign in to write your memories!')
+                : Text('Diary List'),
         actions: [
           user == null
               ? IconButton(
-            icon: Icon(Icons.login),
-            onPressed: () => signIn(ref),
-          )
+                icon: Icon(Icons.login),
+                onPressed: () => signIn(ref),
+              )
               : IconButton(
-            icon: Icon(Icons.logout),
-            onPressed: () => signOut(ref),
-          ),
+                icon: Icon(Icons.logout),
+                onPressed: () => signOut(ref),
+              ),
         ],
       ),
-      body: user == null
-          ? Center(
-        child: Column(
-          children: [
-            Wrap(
-              children: [
-                Image(image: AssetImage('assets/diary.gif')),
-               Center(
-                 child:  FilledButton(
-                   onPressed: () => signIn(ref),
-                   child: Text("Sign in with Google"),
-                 ),
-               )
-              ],
-            )
-          ],
-        )
-      )
-          : PageView(
+      body: PageView(
         controller: _pageController,
         onPageChanged: _onPageChanged,
-        children: [
-          DiaryPage(),
-          AccountPage(),
-        ],
+        children: [DiaryPage(), AccountPage()],
       ),
-      bottomNavigationBar: user == null
-          ? null
-          : BottomNavigationBar(
-        items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(icon: Icon(Icons.note_alt), label: 'Diary'),
-          BottomNavigationBarItem(icon: Icon(Icons.account_circle), label: 'Account'),
-        ],
-        currentIndex: _selectedIndex,
-        selectedItemColor: Colors.blue[800],
-        onTap: _onNavItemTapped,
-      ),
+      bottomNavigationBar:
+          user == null
+              ? Center(
+                child: Column(
+                  children: [
+                    Wrap(
+                      children: [
+                        Image(image: AssetImage('assets/diary.gif')),
+                        Center(
+                          child: FilledButton(
+                            onPressed: () => signIn(ref),
+                            child: Text("Sign in with Google"),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              )
+              : BottomNavigationBar(
+                items: const <BottomNavigationBarItem>[
+                  BottomNavigationBarItem(
+                    icon: Icon(Icons.note_alt),
+                    label: 'Diary',
+                  ),
+                  BottomNavigationBarItem(
+                    icon: Icon(Icons.account_circle),
+                    label: 'Account',
+                  ),
+                ],
+                currentIndex: _selectedIndex,
+                selectedItemColor: Colors.blue[800],
+                onTap: _onNavItemTapped,
+              ),
     );
   }
 }

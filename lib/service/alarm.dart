@@ -1,23 +1,25 @@
-
-import 'package:alarm/model/volume_settings.dart';
 import 'package:alarm/alarm.dart';
 
 import '../constant/file.dart';
-
 
 class AlarmUtil {
   static Future initialize() async {
     await Alarm.init();
   }
 
-  static void setTodoAlarm(int id, DateTime dateTime, String title, String body) {
+  static void setTodoAlarm(
+    int id,
+    DateTime dateTime,
+    String title,
+    String body,
+  ) {
     final alarmSettings = AlarmSettings(
       id: id,
       dateTime: dateTime,
       assetAudioPath: audioFile,
       loopAudio: true,
       vibrate: true,
-      //-> Add this new 2 
+      //-> Add this new 2
       androidFullScreenIntent: true,
       allowAlarmOverlap: true,
       //
