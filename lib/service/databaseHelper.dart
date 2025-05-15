@@ -7,6 +7,8 @@ class DatabaseHelper {
   static const String _dbName = "diary.db";
   static const String _userTable = "user";
 
+  static const String _diaryTable ="diary";
+
   /// Get Database Instance
   static Future<Database> get database async {
     if (_database != null) return _database!;
@@ -23,9 +25,9 @@ class DatabaseHelper {
         await db.execute('''
           CREATE TABLE diary (
             id TEXT PRIMARY KEY,
-            userId INTEGER NOT  NULL,
-            title TEXT,
-            description TEXT,
+            userID INTEGER NOT  NULL,
+            diaryTitle TEXT,
+            diaryDescription TEXT,
             dateTime TEXT NOT NULL
           )
         ''');
@@ -63,28 +65,28 @@ class DatabaseHelper {
   /// **Insert a Todo**
   static Future<void> insertDiary(DiaryModel diary) async {
     final db = await database;
-    await db.insert('diary', {
+    await db.insert(_diaryTable, {
       'id': diary.id,
-      'userId': diary.userId,
-      'title': diary.diaryTitle,
-      'completed': diary.diaryDescription,
-      'dueDate': diary.dateTime.toIso8601String(),
+      'userID': diary.userId,
+      'diaryTitle': diary.diaryTitle,
+      'diaryDescription': diary.diaryDescription,
+      'dateTime': diary.dateTime.toIso8601String(),
     }, conflictAlgorithm: ConflictAlgorithm.replace);
   }
 
   /// **Retrieve All Todos**
   static Future<List<DiaryModel>> getDiaries() async {
     final db = await database;
-    final List<Map<String, dynamic>> maps = await db.query('todos');
+    final List<Map<String, dynamic>> maps = await db.query(_diaryTable);
 
     return maps
         .map(
           (map) => DiaryModel(
             id: map['id'],
-            diaryTitle: map['title'],
-            diaryDescription: map['description'],
-            userId: map['userId'],
-            dateTime: DateTime.parse(map['dueDate']),
+            diaryTitle: map['diaryTitle'],
+            diaryDescription: map['diaryDescription'],
+            userId: map['userID'],
+            dateTime: DateTime.parse(map['dateTime']),
           ),
         )
         .toList();

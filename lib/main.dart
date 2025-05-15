@@ -21,6 +21,7 @@ Future<void> main() async {
     Permission.scheduleExactAlarm,
   ]);
 
+
   FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
       FlutterLocalNotificationsPlugin();
 

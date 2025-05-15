@@ -26,28 +26,46 @@ final diaryListProvider = StreamProvider<List<DiaryModel>>((ref) {
   if (user == null) {
     return Stream.value([]); // Return empty list if not signed in
   }
+  debugPrint("🟡 UserID from FireStore User... ${user.toString()}");
 
+  String userID = user.toString();
   return firestore
       .collection('diary')
-      .doc(user)
+      .doc(userID)
       .collection('list')
       .snapshots()
       .asyncMap((snapshot) async {
-        List<DiaryModel> firebaseTodos =
+
+
+
+
+
+        List<DiaryModel> firebaseDiary =
             snapshot.docs
-                .map((doc) => DiaryModel.fromJson(doc.data()))
+                .map((doc)
+                  => DiaryModel(
+                      id: doc.id,
+                      dateTime: doc.data()['dateTime'].toDate(),
+                      userId: doc.data()['userID'],
+                      diaryTitle: doc.data()['diaryTitle'],
+                      diaryDescription: doc.data()['diaryDescription'])
+            )
                 .toList();
 
+
+        debugPrint("🟡 Diary from FireStore... ${firebaseDiary.length}");
+
+
         // Save to SQLite for offline support
-        for (var todo in firebaseTodos) {
-          await DatabaseHelper.insertDiary(todo);
+        for (var diary in firebaseDiary) {
+          await DatabaseHelper.insertDiary(diary);
         }
 
-        // Load local todos if Firebase is empty
-        if (firebaseTodos.isEmpty) {
+        // Load local diary if Firebase is empty
+        if (firebaseDiary.isEmpty) {
           return await DatabaseHelper.getDiaries();
         }
 
-        return firebaseTodos;
+        return firebaseDiary;
       });
 });

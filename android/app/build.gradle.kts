@@ -13,6 +13,9 @@ android {
     compileSdk = 36
     ndkVersion = "27.0.12077973"
 
+
+
+
     compileOptions {
         // For AGP 4.1+
         isCoreLibraryDesugaringEnabled = true
@@ -56,6 +59,12 @@ android {
             // TODO: Add your own signing config for the release build.
             // Signing with the debug keys for now, so `flutter run --release` works.
             signingConfig = signingConfigs.getByName("debug")
+
+            //Enable code shrinking,obfuscation and optimation for only your project release build type
+            //
+            isMinifyEnabled = true
+            //Enable resource shrinking, which is performed by  the Android Gradle
+            isShrinkResources =  true
         }
     }
 }
