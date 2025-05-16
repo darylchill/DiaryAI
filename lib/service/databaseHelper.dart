@@ -25,7 +25,6 @@ class DatabaseHelper {
         await db.execute('''
           CREATE TABLE diary (
             id TEXT PRIMARY KEY,
-            userID INTEGER NOT  NULL,
             diaryTitle TEXT,
             diaryDescription TEXT,
             dateTime TEXT NOT NULL
@@ -67,7 +66,7 @@ class DatabaseHelper {
     final db = await database;
     await db.insert(_diaryTable, {
       'id': diary.id,
-      'userID': diary.userId,
+
       'diaryTitle': diary.diaryTitle,
       'diaryDescription': diary.diaryDescription,
       'dateTime': diary.dateTime.toIso8601String(),
@@ -85,7 +84,7 @@ class DatabaseHelper {
             id: map['id'],
             diaryTitle: map['diaryTitle'],
             diaryDescription: map['diaryDescription'],
-            userId: map['userID'],
+
             dateTime: DateTime.parse(map['dateTime']),
           ),
         )

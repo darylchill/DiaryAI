@@ -30,9 +30,9 @@ final diaryListProvider = StreamProvider<List<DiaryModel>>((ref) {
 
   String userID = user.toString();
   return firestore
-      .collection('diary')
+      .collection('user')
       .doc(userID)
-      .collection('list')
+      .collection('diaryEntries')
       .snapshots()
       .asyncMap((snapshot) async {
 
@@ -46,7 +46,6 @@ final diaryListProvider = StreamProvider<List<DiaryModel>>((ref) {
                   => DiaryModel(
                       id: doc.id,
                       dateTime: doc.data()['dateTime'].toDate(),
-                      userId: doc.data()['userID'],
                       diaryTitle: doc.data()['diaryTitle'],
                       diaryDescription: doc.data()['diaryDescription'])
             )

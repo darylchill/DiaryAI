@@ -9,7 +9,6 @@ part of 'models.dart';
 _DiaryModel _$DiaryModelFromJson(Map<String, dynamic> json) => _DiaryModel(
   id: json['id'] as String,
   dateTime: DateTime.parse(json['dateTime'] as String),
-  userId: json['userId'] as String,
   diaryTitle: json['diaryTitle'] as String,
   diaryDescription: json['diaryDescription'] as String,
 );
@@ -18,7 +17,6 @@ Map<String, dynamic> _$DiaryModelToJson(_DiaryModel instance) =>
     <String, dynamic>{
       'id': instance.id,
       'dateTime': instance.dateTime.toIso8601String(),
-      'userId': instance.userId,
       'diaryTitle': instance.diaryTitle,
       'diaryDescription': instance.diaryDescription,
     };

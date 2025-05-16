@@ -9,7 +9,6 @@ abstract class DiaryModel with _$DiaryModel {
   const factory DiaryModel({
     required String id,
     required DateTime dateTime,
-    required String userId,
     required String diaryTitle,
     required String diaryDescription,
   }) = _DiaryModel;

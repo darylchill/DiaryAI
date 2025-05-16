@@ -8,6 +8,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 import 'firebase_options.dart';
+import 'pages/cloud_function_test_widget.dart';
 import 'pages/widget/bottomNavigation.dart';
 
 Future<void> main() async {

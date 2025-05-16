@@ -16,7 +16,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$DiaryModel implements DiagnosticableTreeMixin {
 
- String get id; DateTime get dateTime; String get userId; String get diaryTitle; String get diaryDescription;
+ String get id; DateTime get dateTime; String get diaryTitle; String get diaryDescription;
 /// Create a copy of DiaryModel
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -30,21 +30,21 @@ $DiaryModelCopyWith<DiaryModel> get copyWith => _$DiaryModelCopyWithImpl<DiaryMo
 void debugFillProperties(DiagnosticPropertiesBuilder properties) {
   properties
     ..add(DiagnosticsProperty('type', 'DiaryModel'))
-    ..add(DiagnosticsProperty('id', id))..add(DiagnosticsProperty('dateTime', dateTime))..add(DiagnosticsProperty('userId', userId))..add(DiagnosticsProperty('diaryTitle', diaryTitle))..add(DiagnosticsProperty('diaryDescription', diaryDescription));
+    ..add(DiagnosticsProperty('id', id))..add(DiagnosticsProperty('dateTime', dateTime))..add(DiagnosticsProperty('diaryTitle', diaryTitle))..add(DiagnosticsProperty('diaryDescription', diaryDescription));
 }
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is DiaryModel&&(identical(other.id, id) || other.id == id)&&(identical(other.dateTime, dateTime) || other.dateTime == dateTime)&&(identical(other.userId, userId) || other.userId == userId)&&(identical(other.diaryTitle, diaryTitle) || other.diaryTitle == diaryTitle)&&(identical(other.diaryDescription, diaryDescription) || other.diaryDescription == diaryDescription));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is DiaryModel&&(identical(other.id, id) || other.id == id)&&(identical(other.dateTime, dateTime) || other.dateTime == dateTime)&&(identical(other.diaryTitle, diaryTitle) || other.diaryTitle == diaryTitle)&&(identical(other.diaryDescription, diaryDescription) || other.diaryDescription == diaryDescription));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,dateTime,userId,diaryTitle,diaryDescription);
+int get hashCode => Object.hash(runtimeType,id,dateTime,diaryTitle,diaryDescription);
 
 @override
 String toString({ DiagnosticLevel minLevel = DiagnosticLevel.info }) {
-  return 'DiaryModel(id: $id, dateTime: $dateTime, userId: $userId, diaryTitle: $diaryTitle, diaryDescription: $diaryDescription)';
+  return 'DiaryModel(id: $id, dateTime: $dateTime, diaryTitle: $diaryTitle, diaryDescription: $diaryDescription)';
 }
 
 
@@ -55,7 +55,7 @@ abstract mixin class $DiaryModelCopyWith<$Res>  {
   factory $DiaryModelCopyWith(DiaryModel value, $Res Function(DiaryModel) _then) = _$DiaryModelCopyWithImpl;
 @useResult
 $Res call({
- String id, DateTime dateTime, String userId, String diaryTitle, String diaryDescription
+ String id, DateTime dateTime, String diaryTitle, String diaryDescription
 });
 
 
@@ -72,12 +72,11 @@ class _$DiaryModelCopyWithImpl<$Res>
 
 /// Create a copy of DiaryModel
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? dateTime = null,Object? userId = null,Object? diaryTitle = null,Object? diaryDescription = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? dateTime = null,Object? diaryTitle = null,Object? diaryDescription = null,}) {
   return _then(_self.copyWith(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String,dateTime: null == dateTime ? _self.dateTime : dateTime // ignore: cast_nullable_to_non_nullable
-as DateTime,userId: null == userId ? _self.userId : userId // ignore: cast_nullable_to_non_nullable
-as String,diaryTitle: null == diaryTitle ? _self.diaryTitle : diaryTitle // ignore: cast_nullable_to_non_nullable
+as DateTime,diaryTitle: null == diaryTitle ? _self.diaryTitle : diaryTitle // ignore: cast_nullable_to_non_nullable
 as String,diaryDescription: null == diaryDescription ? _self.diaryDescription : diaryDescription // ignore: cast_nullable_to_non_nullable
 as String,
   ));
@@ -90,12 +89,11 @@ as String,
 @JsonSerializable()
 
 class _DiaryModel with DiagnosticableTreeMixin implements DiaryModel {
-  const _DiaryModel({required this.id, required this.dateTime, required this.userId, required this.diaryTitle, required this.diaryDescription});
+  const _DiaryModel({required this.id, required this.dateTime, required this.diaryTitle, required this.diaryDescription});
   factory _DiaryModel.fromJson(Map<String, dynamic> json) => _$DiaryModelFromJson(json);
 
 @override final  String id;
 @override final  DateTime dateTime;
-@override final  String userId;
 @override final  String diaryTitle;
 @override final  String diaryDescription;
 
@@ -113,21 +111,21 @@ Map<String, dynamic> toJson() {
 void debugFillProperties(DiagnosticPropertiesBuilder properties) {
   properties
     ..add(DiagnosticsProperty('type', 'DiaryModel'))
-    ..add(DiagnosticsProperty('id', id))..add(DiagnosticsProperty('dateTime', dateTime))..add(DiagnosticsProperty('userId', userId))..add(DiagnosticsProperty('diaryTitle', diaryTitle))..add(DiagnosticsProperty('diaryDescription', diaryDescription));
+    ..add(DiagnosticsProperty('id', id))..add(DiagnosticsProperty('dateTime', dateTime))..add(DiagnosticsProperty('diaryTitle', diaryTitle))..add(DiagnosticsProperty('diaryDescription', diaryDescription));
 }
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _DiaryModel&&(identical(other.id, id) || other.id == id)&&(identical(other.dateTime, dateTime) || other.dateTime == dateTime)&&(identical(other.userId, userId) || other.userId == userId)&&(identical(other.diaryTitle, diaryTitle) || other.diaryTitle == diaryTitle)&&(identical(other.diaryDescription, diaryDescription) || other.diaryDescription == diaryDescription));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _DiaryModel&&(identical(other.id, id) || other.id == id)&&(identical(other.dateTime, dateTime) || other.dateTime == dateTime)&&(identical(other.diaryTitle, diaryTitle) || other.diaryTitle == diaryTitle)&&(identical(other.diaryDescription, diaryDescription) || other.diaryDescription == diaryDescription));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,dateTime,userId,diaryTitle,diaryDescription);
+int get hashCode => Object.hash(runtimeType,id,dateTime,diaryTitle,diaryDescription);
 
 @override
 String toString({ DiagnosticLevel minLevel = DiagnosticLevel.info }) {
-  return 'DiaryModel(id: $id, dateTime: $dateTime, userId: $userId, diaryTitle: $diaryTitle, diaryDescription: $diaryDescription)';
+  return 'DiaryModel(id: $id, dateTime: $dateTime, diaryTitle: $diaryTitle, diaryDescription: $diaryDescription)';
 }
 
 
@@ -138,7 +136,7 @@ abstract mixin class _$DiaryModelCopyWith<$Res> implements $DiaryModelCopyWith<$
   factory _$DiaryModelCopyWith(_DiaryModel value, $Res Function(_DiaryModel) _then) = __$DiaryModelCopyWithImpl;
 @override @useResult
 $Res call({
- String id, DateTime dateTime, String userId, String diaryTitle, String diaryDescription
+ String id, DateTime dateTime, String diaryTitle, String diaryDescription
 });
 
 
@@ -155,12 +153,11 @@ class __$DiaryModelCopyWithImpl<$Res>
 
 /// Create a copy of DiaryModel
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? dateTime = null,Object? userId = null,Object? diaryTitle = null,Object? diaryDescription = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? dateTime = null,Object? diaryTitle = null,Object? diaryDescription = null,}) {
   return _then(_DiaryModel(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String,dateTime: null == dateTime ? _self.dateTime : dateTime // ignore: cast_nullable_to_non_nullable
-as DateTime,userId: null == userId ? _self.userId : userId // ignore: cast_nullable_to_non_nullable
-as String,diaryTitle: null == diaryTitle ? _self.diaryTitle : diaryTitle // ignore: cast_nullable_to_non_nullable
+as DateTime,diaryTitle: null == diaryTitle ? _self.diaryTitle : diaryTitle // ignore: cast_nullable_to_non_nullable
 as String,diaryDescription: null == diaryDescription ? _self.diaryDescription : diaryDescription // ignore: cast_nullable_to_non_nullable
 as String,
   ));
